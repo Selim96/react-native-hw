@@ -8,7 +8,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableWithoutFeedback,
-  Keyboard
+  Keyboard,
+  ImageBackground,
 } from 'react-native';
 
 export default function App() {
@@ -18,6 +19,9 @@ export default function App() {
   return (
   <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
+        <ImageBackground source={require('./assets/icon.png')}>
+          
+      </ImageBackground>
       <Text style={styles.text}>Open up App.js to start working on your app!</Text>
       <KeyboardAvoidingView
       behavior={Platform.OS == "ios" ? "padding" : "height"}

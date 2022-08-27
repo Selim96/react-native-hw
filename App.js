@@ -11,30 +11,28 @@ import {
   Keyboard,
   ImageBackground,
 } from 'react-native';
+import { useFonts } from 'expo-font'
+import Registration from "./Screens";
 
 export default function App() {
-  const [value, setValue] = useState("");
-  const inputChange = (text) => setValue(text);
+  const [fontsLoaded] = useFonts({
+    'Roboto-Regular': require('./assets/fonts/Roboto-Regular.ttf'),
+    'Roboto-Medium': require('./assets/fonts/Roboto-Medium.ttf'),
+    'Roboto-Bold': require('./assets/fonts/Roboto-Bold.ttf'),
+  });
+
+  if (!fontsLoaded) return 
+      <Text>
+        Loading...
+      </Text>;
 
   return (
   <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
-        <ImageBackground source={require('./assets/icon.png')}>
-          
+      <ImageBackground source={require('./assets/images/bg_photo.png')} style={styles.bground}>
+          <StatusBar style="auto" />
+          <Registration/>
       </ImageBackground>
-      <Text style={styles.text}>Open up App.js to start working on your app!</Text>
-      <KeyboardAvoidingView
-      behavior={Platform.OS == "ios" ? "padding" : "height"}
-      >
-        <TextInput
-          style={styles.input}
-          placeholder='Type text'
-          value={value}
-          keyboardType='default'
-          onChangeText={inputChange}
-          />
-      </KeyboardAvoidingView>
-      <StatusBar style="auto" />
     </View>
   </TouchableWithoutFeedback>
   );
@@ -44,19 +42,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#009A50',
-    alignItems: 'center',
-    justifyContent: 'center',
+    fontFamily: 'Roboto-Regular'
   },
-  text: {
-    color: '#FF6C00',
-  },
-  input: {
-    color: 'fff',
-    border: 'solid',
-    borderColor: '#FF6D99',
-    borderWidth: 2,
-    padding: 5,
-    borderRadius: 10,
-    marginTop: 50
+  bground: {
+    flex: 1,
+    justifyContent: 'flex-end',
   }
 });

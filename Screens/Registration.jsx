@@ -6,56 +6,61 @@ import {
     TextInput,
     KeyboardAvoidingView,
     Platform,
-    TouchableOpacity
+    TouchableOpacity,
 } from 'react-native';
 
-export default function Registration() {
+export default function Registration({keyboardHide}) {
     const [login, setLogin] = useState("");
     const [email, setEmale] = useState("");
     const [password, setPassword] = useState("");
+    const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
     const loginHandler = text => setLogin(text);
     const emailHandler = text => setEmale(text);
     const passwordHandler = text => setPassword(text);
 
-    const onLogin = () => {
+    const handlPress = () => {
+        keyboardHide();
         console.log(`${login} + ${email} + ${password}`);
-    setLogin("");
-    setEmale("");
-    setPassword("");
+        setLogin("");
+        setEmale("");
+        setPassword("");
     };
 
     return (
         <View style={styles.mainDiv}>
             <Text style={styles.text}>Регистрация</Text>
-            <View style={styles.form}>
+            <View style={{...styles.form, marginBottom: isShowKeyboard ? 32 : 43}}>
                 <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
                 <TextInput
                     value={login}
                     onChangeText={loginHandler}
                     placeholder="Login"
-                        style={styles.input}
+                    style={styles.input}
                         placeholderTextColor='#BDBDBD'
+                    onFocus={() => setIsShowKeyboard(true)}
                 />
                     <TextInput
                         keyboardType='email-address'
                     value={email}
                     onChangeText={emailHandler}
                     placeholder="Email"
-                        style={styles.input}
-                        placeholderTextColor='#BDBDBD'
+                    style={styles.input}
+                    placeholderTextColor='#BDBDBD'
+                    onFocus={() => setIsShowKeyboard(true)}
                 />
                     <TextInput
                     value={password}
                     onChangeText={passwordHandler}
                     placeholder="Password"
-                        style={styles.input}
-                        secureTextEntry={true}
-                        placeholderTextColor='#BDBDBD'
+                    style={styles.input}
+                    secureTextEntry={true}
+                    placeholderTextColor='#BDBDBD'
+                    onFocus={() => setIsShowKeyboard(true)}
                 />
                 </KeyboardAvoidingView>
             </View>
-            <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={onLogin}>
+            <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={handlPress}>
                 <Text style={styles.btnText}>Зарегистрироваться</Text></TouchableOpacity>
             <Text style={styles.linkToLogin}>Уже есть аккаунт? Войти</Text>
         </View>
@@ -78,7 +83,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     form: {
-
+        marginBottom: 32,
     },
     input: {
         color: '#212121',
@@ -93,8 +98,8 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     button: {
+        marginTop: 11,
         marginHorizontal: 16,
-        marginTop: 43,
         marginBottom: 16,
         backgroundColor: '#FF6C00',
         height: 51,

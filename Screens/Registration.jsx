@@ -7,6 +7,7 @@ import {
     KeyboardAvoidingView,
     Platform,
     TouchableOpacity,
+    Keyboard
 } from 'react-native';
 
 export default function Registration({keyboardHide}) {
@@ -27,17 +28,22 @@ export default function Registration({keyboardHide}) {
         setPassword("");
     };
 
+    // const keyboardHide = () => {
+    //     setIsShowKeyboard(false);
+    //     Keyboard.dismiss();
+    // }
+
     return (
         <View style={styles.mainDiv}>
             <Text style={styles.text}>Регистрация</Text>
-            <View style={{...styles.form, marginBottom: isShowKeyboard ? 32 : 43}}>
+            <View style={{...styles.form, marginBottom: isShowKeyboard ? 20 : 43}}>
                 <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
                 <TextInput
                     value={login}
                     onChangeText={loginHandler}
                     placeholder="Login"
                     style={styles.input}
-                        placeholderTextColor='#BDBDBD'
+                    placeholderTextColor='#BDBDBD'
                     onFocus={() => setIsShowKeyboard(true)}
                 />
                     <TextInput
@@ -83,7 +89,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     form: {
-        marginBottom: 32,
+        // marginBottom: 32,
     },
     input: {
         color: '#212121',
